@@ -4,6 +4,9 @@ Hiya, wanted an easy way to add mods to a modded self hosted Project Zomboid ser
 # Description
 It's a pretty dumbed down scrapper it'll just take everything you have installed in the steam workshop for project zomboid and output it in a copy of your .ini file already at the inteded emplacement while your old .ini file will be renamed "backup_<old_name>.ini"
 
+# Requierements
+Python 3.x [Link Here](https://www.python.org/downloads/)
+
 # **How to use**
 Simply download the "PZ_mods.py" and place it anywhere easily accessible
 
