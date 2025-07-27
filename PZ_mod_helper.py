@@ -74,7 +74,7 @@ def update_ini_file(input_path, workshop_ids, mod_ids):
         # Backup old file
         backup_path = os.path.join(
             os.path.dirname(input_path),
-            f"{os.path.basename(input_path)}.back"
+            f"backup_{os.path.basename(input_path)}"
         )
         shutil.move(input_path, backup_path)
         print(f"📦 Original file backed up as: {backup_path}")
