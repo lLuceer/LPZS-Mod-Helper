@@ -11,3 +11,6 @@ And just drag n drop it on the .py script
 
 # /!\ For those that have steam outside the default path you will need to manually change the steam location /!\
 Just open the script with your notepad or any other file editor and change the path on "workshop_path =" by r"_Your Steam Path_\Steam\steamapps\workshop\content\108600"
+
+#License
+This project is licensed under the MIT License - see the [LICENSE]([url](https://opensource.org/license/MIT)) file for details.
