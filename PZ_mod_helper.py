@@ -34,17 +34,40 @@ def gather_mods(base_path):
         if not os.path.exists(mods_path):
             continue
 
-        local_mod_ids = []
+        found_ids = []
+        mod_folder_paths = []
+
         for mod_folder in os.listdir(mods_path):
             mod_info_path = os.path.join(mods_path, mod_folder, "mod.info")
-            if os.path.isfile(mod_info_path):
-                ids = parse_mod_info(mod_info_path)
-                local_mod_ids.extend(ids)
+            if not os.path.isfile(mod_info_path):
+                continue
 
-        if local_mod_ids:
-            print(f"✅ {workshop_id} → {local_mod_ids}")
+            ids = parse_mod_info(mod_info_path)
+            if ids:
+                found_ids.extend(ids)
+                mod_folder_paths.append((mod_folder, ids))
+
+        if len(found_ids) == 0:
+            continue
+        elif len(found_ids) == 1:
+            mod_ids.extend(found_ids)
             workshop_ids.append(workshop_id)
-            mod_ids.extend(local_mod_ids)
+        else:
+            print(f"\n🛠️ Workshop ID {workshop_id} has multiple Mod folders with IDs:")
+            for idx, (mod_folder, ids) in enumerate(mod_folder_paths):
+                print(f"  [{idx + 1}] Folder: {mod_folder} → ID: {', '.join(ids)}")
+
+            while True:
+                choice = input("👉 Enter the number(s) of the Mod(s) to include (e.g., 1 or 1,2): ").strip()
+                try:
+                    selections = [int(i) - 1 for i in choice.split(",")]
+                    for sel in selections:
+                        if 0 <= sel < len(mod_folder_paths):
+                            mod_ids.extend(mod_folder_paths[sel][1])
+                    workshop_ids.append(workshop_id)
+                    break
+                except:
+                    print("❌ Invalid input. Please enter numbers separated by commas.")
 
     return workshop_ids, mod_ids
 
