@@ -15,7 +15,7 @@ And just drag n drop it on the .py script
 
 You'll then be prompted with a CMD window who ask wich submods to include as some mods have different version separated by submods you can select just one by entering the numerical value that will be shown or multiple by separating the different numerical value by a comma EX : 1,3,4
 
-/!\ It doesn't import workshop maps
+**/!\ It doesn't import workshop maps**
 
 # /!\ For those that have steam outside the default path you will need to manually change the steam location /!\
 Just open the script with your notepad or any other file editor and change the path on "workshop_path =" by r"_Your Steam Path_\Steam\steamapps\workshop\content\108600"
