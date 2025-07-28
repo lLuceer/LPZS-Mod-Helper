@@ -19,7 +19,7 @@ You'll then be prompted with a CMD window who ask wich submods to include as som
 Just open the script with your notepad or any other file editor and change the path on "workshop_path =" by r"_Your Steam Path_\Steam\steamapps\workshop\content\108600"
 
 # Collection downloader
-For those that may have other mod than what they want to add I added 2 scripts to download only that collection, it uses SteamCMD download it [here](https://developer.valvesoftware.com/wiki/SteamCMD)
+For those that may have other mod than what they want to add I added 2 scripts to download only that collection, it uses SteamCMD download it [here](https://developer.valvesoftware.com/wiki/SteamCMD) and the original script modified
 
 1. Place steamCMD in a new folder then launch it. It will download all requiered files and when it finish you can just close it
 
@@ -29,9 +29,9 @@ For those that may have other mod than what they want to add I added 2 scripts t
 
 4. Next place "download collec.py" in your steamCMD folder and drag n drop the txt file containing your workshop items on it
 
-5. Before dragging n dropping your .ini file on the "PZ_mod_helper.py" right click on it and open with notepad and replace the path by : workshop_path = r"Your steamCMD path\steamapps\workshop\content\108600" then exit and save and you will be able to then drag n drop your ini file on it
+5. And to finish place the "PZ_mod_helper-SteamCMD.py" in your steamCMD folder and you will be good to drag n drop your .ini file on it
 
-*It is thinked for project zomboid but you can easilly change it for any game that allow [anonymous download](https://steamdb.info/sub/17906/apps/) for that simply open "download collec.py" with your notepad and replace the **Steam_APP_ID = "_108600_"** by the ID of your game
+* It is thinked for project zomboid but you can easilly change it for any game that allow [anonymous download](https://steamdb.info/sub/17906/apps/) for that simply open "download collec.py" with your notepad and replace the **Steam_APP_ID = "_108600_"** by the ID of your game
 
 * Download collec.py can be used outside steamCMD but you will need to specify a path in the script just open it and enter the steamCMD folder in **STEAM_CMD_PATH = "_your path_"**
 
