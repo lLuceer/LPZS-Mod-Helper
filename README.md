@@ -18,6 +18,8 @@ You'll then be prompted with a CMD window who ask wich submods to include as som
 # /!\ For those that have steam outside the default path you will need to manually change the steam location /!\
 Just open the script with your notepad or any other file editor and change the path on "workshop_path =" by r"_Your Steam Path_\Steam\steamapps\workshop\content\108600"
 
+Alternatively with the addition of the "Collection downloader" you can use the "PZ_mod_helper-SteamCMD.py" just drop it in your steam folder and you will be able to drag n drop your .ini file on it
+
 # Collection downloader
 For those that may have other mod than what they want to add I added 2 scripts to download only that collection, it uses SteamCMD download it [here](https://developer.valvesoftware.com/wiki/SteamCMD) and the original script modified
 
