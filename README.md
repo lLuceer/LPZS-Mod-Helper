@@ -38,6 +38,3 @@ For those that may have other mod than what they want to add I added 2 scripts t
 * It is thinked for project zomboid but you can easilly change it for any game that allow [anonymous download](https://steamdb.info/sub/17906/apps/) for that simply open "download collec.py" with your notepad and replace the **Steam_APP_ID = "_108600_"** by the ID of your game
 
 * Download collec.py can be used outside steamCMD but you will need to specify a path in the script just open it and enter the steamCMD folder in **STEAM_CMD_PATH = "_your path_"**
-
-# License
-This project is licensed under the MIT License - see the [LICENSE](https://opensource.org/license/MIT) file for details.
