@@ -6,7 +6,9 @@ It's a pretty dumbed down scrapper it'll just take everything you have installed
 
 After quite a lot of update I can no longer call it dumb 😔 It now ask for steam path (it'll use it to set workshop path so if you use the **Collection Downloader** you can set the "SteamCMD" path
 
-There are two versions the "PZ_mod_helper.py" that just scan the downloaded workshop files and input it
+There are two versions the "PZ_mod_helper.py" that just scan the downloaded workshop files and input it in your .ini file
+
+And the newer version "PZ_mod_helper_CopyWorkshop.py" that will like the first version scan your downloaded workshop items and input it in the .ini file but it will also copy all the mods in the folder into your local or dedicated server so you don't have to download them 2 times it also allow to never get the infamous stuck on 0/172304 error
 
 # Requierements
 Python 3.x [Link Here](https://www.python.org/downloads/)
