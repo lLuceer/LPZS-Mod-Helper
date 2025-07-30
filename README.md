@@ -14,19 +14,19 @@ And the newer version "PZ_mod_helper_CopyWorkshop.py" that will like the first v
 Python 3.x [Link Here](https://www.python.org/downloads/)
 
 # **How to use**
-Simply download "PZ_mod_helper.py" or "PZ_mod_helper_CopyWorkshop.py" and place it anywhere easily accessible
+1. Simply download "PZ_mod_helper.py" or "PZ_mod_helper_CopyWorkshop.py" and place it anywhere easily accessible
 
-Double click it to setup your steam and game paths then press enter to close when prompted to
+2. Double click it to setup your steam and game paths then press enter to close when prompted to
 
-Then go to your server .ini file by default it should be located in "%userprofile%/zomboid/server" or "C:/Users/_your username_/zomboid/server"
+3. Then go to your server .ini file by default it should be located in "%userprofile%/zomboid/server" or "C:/Users/_your username_/zomboid/server"
 
-And just drag n drop it on the .py script
+4. And just drag n drop it on the .py script
 
-You'll then be prompted with a CMD window who ask wich submods to include as some mods have different version separated by submods you can select just one by entering the numerical value that will be shown or multiple by separating the different numerical value by a comma EX : 1,3,4
+5. You'll then be prompted with a CMD window who ask wich submods to include as some mods have different version separated by submods you can select just one by entering the numerical value that will be shown or multiple by separating the different numerical value by a comma EX : 1,3,4
 
-To change the saved steam path or game path either delete "path_config.txt" and double click the script or you can edit it and set both path manually the first one being your steam/steamCMD path and the second one being your Project Zomboid/PZ Dedicated Server path
+* To change the saved steam path or game path either delete "path_config.txt" and double click the script or you can edit it and set both path manually the first one being your steam/steamCMD path and the second one being your Project Zomboid/PZ Dedicated Server path
 
-**/!\ It doesn't import workshop maps**
+* **/!\ It doesn't import workshop maps**
 
 # **Collection downloader**
 For those that may have other mod than what they want to add I added 2 scripts to download only that collection, it uses SteamCMD download it [here](https://developer.valvesoftware.com/wiki/SteamCMD)
