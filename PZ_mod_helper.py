@@ -2,7 +2,43 @@ import os
 import sys
 import shutil
 
-workshop_path = r"C:\Program Files (x86)\Steam\steamapps\workshop\content\108600"
+config_file = "path_config.txt"
+
+def prompt_path(label, default_hint=None):
+    while True:
+        prompt = f"🔍 Enter the path for {label}"
+        if default_hint:
+            prompt += f" (e.g. {default_hint})"
+        prompt += ":\n> "
+        path = input(prompt).strip('"')
+        if os.path.exists(path):
+            return path
+        print("❌ Path not found. Please try again.")
+
+def get_paths():
+    if os.path.exists(config_file):
+        try:
+            with open(config_file, 'r', encoding='cp1252') as f:
+                lines = [line.strip() for line in f.readlines()]
+                if len(lines) == 2 and all(os.path.exists(p) for p in lines):
+                    return lines[0], lines[1]
+                else:
+                    print("⚠️ Saved paths are invalid or incomplete.")
+        except Exception as e:
+            print(f"⚠️ Failed to read config: {e}")
+
+    print("🛠️ First time setup: please specify your paths.\n")
+
+    steam_path = prompt_path("Steam Path", r"C:\Program Files (x86)\Steam")
+    game_path = prompt_path("Project Zomboid or Project Zomboid Dedicated Server", r"C:\Program Files (x86)\Steam\steamapps\common\ProjectZomboid or F:\SteamCMD\steamapps\common\ProjectZomboidDedicatedServer")
+
+    with open(config_file, 'w', encoding='cp1252') as f:
+        f.write(f"{steam_path}\n{game_path}")
+    
+    return steam_path, game_path
+
+steam_path, game_path = get_paths()
+workshop_path = os.path.join(steam_path, "steamapps", "workshop", "content", "108600")
 
 def parse_mod_info(mod_info_path):
     mod_ids = []

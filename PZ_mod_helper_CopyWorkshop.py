@@ -1,8 +1,45 @@
 import os
 import sys
 import shutil
+import time
 
-workshop_path = r"steamapps\workshop\content\108600"
+config_file = "path_config.txt"
+
+def prompt_path(label, default_hint=None):
+    while True:
+        prompt = f"🔍 Enter the path for {label}"
+        if default_hint:
+            prompt += f" (e.g. {default_hint})"
+        prompt += ":\n> "
+        path = input(prompt).strip('"')
+        if os.path.exists(path):
+            return path
+        print("❌ Path not found. Please try again.")
+
+def get_paths():
+    if os.path.exists(config_file):
+        try:
+            with open(config_file, 'r', encoding='cp1252') as f:
+                lines = [line.strip() for line in f.readlines()]
+                if len(lines) == 2 and all(os.path.exists(p) for p in lines):
+                    return lines[0], lines[1]
+                else:
+                    print("⚠️ Saved paths are invalid or incomplete.")
+        except Exception as e:
+            print(f"⚠️ Failed to read config: {e}")
+
+    print("🛠️ First time setup: please specify your paths.\n")
+
+    steam_path = prompt_path("Steam Path", r"C:\Program Files (x86)\Steam")
+    game_path = prompt_path("Project Zomboid or Project Zomboid Dedicated Server", r"C:\Program Files (x86)\Steam\steamapps\common\ProjectZomboid or F:\SteamCMD\steamapps\common\ProjectZomboidDedicatedServer")
+
+    with open(config_file, 'w', encoding='cp1252') as f:
+        f.write(f"{steam_path}\n{game_path}")
+    
+    return steam_path, game_path
+
+steam_path, game_path = get_paths()
+workshop_path = os.path.join(steam_path, "steamapps", "workshop", "content", "108600")
 
 def parse_mod_info(mod_info_path):
     mod_ids = []
@@ -110,6 +147,59 @@ def update_ini_file(input_path, workshop_ids, mod_ids):
     except Exception as e:
         print(f"❌ Error updating INI file: {e}")
 
+def copy_with_prompt_and_progress(src, dst):
+    if os.path.exists(dst):
+        ans = input(f"⚠️ '{dst}' already exists. Overwrite? (y/n): ").strip().lower()
+        if ans != 'y':
+            print(f"⏭️ Skipped: {dst}")
+            return
+        if os.path.isdir(dst):
+            shutil.rmtree(dst)
+        else:
+            os.remove(dst)
+
+    if os.path.isdir(src):
+        total_items = len(os.listdir(src))
+        print(f"📦 Copying directory '{src}' → '{dst}' ({total_items} items)...")
+        os.makedirs(dst, exist_ok=True)
+        for idx, item in enumerate(os.listdir(src), start=1):
+            s_item = os.path.join(src, item)
+            d_item = os.path.join(dst, item)
+            if os.path.isdir(s_item):
+                shutil.copytree(s_item, d_item)
+            else:
+                shutil.copy2(s_item, d_item)
+            print(f"  [{idx}/{total_items}] Copied: {item}")
+            time.sleep(0.05)  # slows down just enough to see progress
+    else:
+        print(f"📄 Copying file '{src}' → '{dst}'...")
+        shutil.copy2(src, dst)
+
+    # ✅ Verification
+    if os.path.exists(dst):
+        print(f"✅ Verified copy to: {dst}")
+    else:
+        print(f"❌ Copy failed: {dst}")
+
+def copy_workshop_to_server():
+    src_content = os.path.join(steam_path, "steamapps", "workshop", "content", "108600")
+    dst_content = os.path.join(game_path, "steamapps", "workshop", "content", "108600")
+
+    src_acf = os.path.join(steam_path, "steamapps", "workshop", "appworkshop_108600.acf")
+    dst_acf_dir = os.path.join(game_path, "steamapps", "workshop")
+    dst_acf = os.path.join(dst_acf_dir, os.path.basename(src_acf))
+
+    try:
+        print("\n📁 Copying workshop mod files...")
+        copy_with_prompt_and_progress(src_content, dst_content)
+
+        print("\n📄 Copying ACF file...")
+        os.makedirs(dst_acf_dir, exist_ok=True)
+        copy_with_prompt_and_progress(src_acf, dst_acf)
+
+    except Exception as e:
+        print(f"🚨 Error during file copy: {e}")
+
 def main():
     if len(sys.argv) < 2:
         print("❌ Drag and drop your server .ini file onto this script or executable.")
@@ -131,6 +221,7 @@ def main():
     except Exception as e:
         print(f"🚨 An error occurred:\n{e}")
 
+    copy_workshop_to_server()
     input("\nPress Enter to exit...")
 
 if __name__ == "__main__":
