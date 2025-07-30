@@ -10,7 +10,7 @@ There are two versions the "PZ_mod_helper.py" that just scan the downloaded work
 
 And the newer version "PZ_mod_helper_CopyWorkshop.py" that will like the first version scan your downloaded workshop items and input it in the .ini file but it will also copy all the mods in the folder into your local or dedicated server so you don't have to download them 2 times it also allow to never get the infamous stuck on 0/172304 error
 
-# Requierements
+# **Requierements**
 Python 3.x [Link Here](https://www.python.org/downloads/)
 
 # **How to use**
