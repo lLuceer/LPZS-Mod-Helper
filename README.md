@@ -39,4 +39,6 @@ For those that may have other mod than what they want to add I added 2 scripts t
 
 3. Next place **download_collec.py** in your SteamCMD folder and double click it it'll take a few second to load then paste your collection ID or link when prompted to and it'll download everything
 
+* SteamCMD being a bit clunky it may takes some time especially with bigger mods that may fail multiple times, added a bruteforce at the end for those bigger mods but I only tested it with brita's weapon pack, it should still work with multiple of those bigger mods but I haven't been able to verify it
+
 * It is thinked for project zomboid but you can easilly change it for any game that allow [anonymous download](https://steamdb.info/sub/17906/apps/) for that simply open "download_collec.py" with your notepad and replace the **STEAM_APP_ID = "_108600_"** by the ID of your game
