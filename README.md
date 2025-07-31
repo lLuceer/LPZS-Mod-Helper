@@ -10,7 +10,7 @@ There are two versions the "PZ_mod_helper.py" that just scan the downloaded work
 
 And the newer version "PZ_mod_helper_CopyWorkshop.py" that will like the first version scan your downloaded workshop items and input it in the .ini file but it will also copy all the mods in the folder into your local or dedicated server so you don't have to download them 2 times it also allow to never get the infamous stuck on 0/172304 error
 
-I included a shortcut to open the default location of .ini files but downloading it modify the extension to .lnk.download you will need to manually delete the .download extension
+I included a shortcut to open the default location of .ini files but downloading it modify the extension to **Open Ini location.lnk.download** you will need to manually delete the .download extension if successful it'll look like a folder with a shortcut Icon and no visile extension
 
 # **Requierements**
 Python 3.x [Link Here](https://www.python.org/downloads/)
