@@ -4,7 +4,7 @@ Hiya, wanted an easy way to add mods to a modded self hosted Project Zomboid ser
 # **Description**
 It's a pretty dumbed down scrapper it'll just take everything you have installed in the steam workshop for project zomboid and output it in a copy of your .ini file already at the inteded emplacement while your old .ini file will be renamed "backup_<old_name>.ini"
 
-After quite a lot of update I can no longer call it dumb 😔 It now ask for steam path (it'll use it to set workshop path so if you use the **Collection Downloader** you can set the "SteamCMD" path
+After quite a lot of update I can no longer call it dumb 😔 It now ask for steam path (it'll use it to set workshop path so if you use the **Collection Downloader** you can set the "SteamCMD" as path
 
 There are two versions the "PZ_mod_helper.py" that just scan the downloaded workshop files and input it in your .ini file
 
@@ -35,8 +35,6 @@ For those that may have other mod than what they want to add I added 2 scripts t
 
 2. For getting the collec you will need python3.x, requests and beautifulsoup4 to install them make sure to check "pip" and on the next page "add python to environment variables" when installing python. If you forgot about it you can rerun the installer and select **modify** then run a cmd prompt and enter : **pip install requests beautifulsoup4**
 
-3. Then run "generate collec.py" it'll ask for the collection just enter the ID EX: _1234567890_, it will generate a .txt file with all workshop IDs of mods in that collection
+3. Next place **download_collec.py** in your SteamCMD folder and double click it it'll take a few second to load then paste your collection ID or link when prompted to and it'll download everything
 
-4. Next place "download collec.py" in your steamCMD folder and drag n drop the txt file containing your workshop items on it
-
-* It is thinked for project zomboid but you can easilly change it for any game that allow [anonymous download](https://steamdb.info/sub/17906/apps/) for that simply open "download collec.py" with your notepad and replace the **Steam_APP_ID = "_108600_"** by the ID of your game
+* It is thinked for project zomboid but you can easilly change it for any game that allow [anonymous download](https://steamdb.info/sub/17906/apps/) for that simply open "download_collec.py" with your notepad and replace the **STEAM_APP_ID = "_108600_"** by the ID of your game
