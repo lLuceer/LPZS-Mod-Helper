@@ -1,14 +1,14 @@
 # **Luceer-s-Project-Zomboid-Server-s-Mod-Helper**
-Hiya, wanted an easy way to add mods to a modded self hosted Project Zomboid server, it may or may not already exist but here's my iteration on it.
+Hiya, wanted an easy way to add mods to a modded self hosted Project Zomboid server for me and my friends but figured I could share it with the community, it may or may not already exists but here's my iteration on it.
 
 # **Description**
-It's a pretty dumbed down scrapper it'll just take everything you have installed in the steam workshop for project zomboid and output it in a copy of your .ini file already at the inteded emplacement while your old .ini file will be renamed "backup_<old_name>.ini"
+It's a pretty dumbed down scrapper it'll just take everything you have installed in the steam workshop for project zomboid and output it in a copy of your .ini file already at the intended emplacement while your old .ini file will be renamed "backup_<old_name>.ini"
 
-After quite a lot of update I can no longer call it dumb 😔 It now ask for steam path (it'll use it to set workshop path so if you use the **Collection Downloader** you can set the "SteamCMD" as path
+After quite a lot of update I can no longer call it dumb 😔 It now ask for steam path (it'll use it to set workshop path so if you use the **Collection Downloader** you can set the "SteamCMD" as path. As well as the game/server path so you won't have to take any more steps if you use a dedicated server or have your game outside the usual location
 
 There are two versions the "PZ_mod_helper.py" that just scan the downloaded workshop files and input it in your .ini file
 
-And the newer version "PZ_mod_helper_CopyWorkshop.py" that will like the first version scan your downloaded workshop items and input it in the .ini file but it will also copy all the mods in the folder into your local or dedicated server so you don't have to download them 2 times it also allow to never get the infamous stuck on 0/172304 error
+And the newer version "PZ_mod_helper_CopyWorkshop.py" that will like the first version scan your downloaded workshop items and input it in the .ini file but it will also copy all the mods in the folder into your local or dedicated server so you don't have to download them 2 times. It also allow to never get the infamous stuck on 0/172304 error
 
 I included a shortcut to open the default location of .ini files but downloading it modify the extension to **Open Ini location.lnk.download** you will need to manually delete the .download extension if successful it'll look like a folder with a shortcut Icon and no visible extension
 
@@ -24,7 +24,7 @@ Python 3.x [Link Here](https://www.python.org/downloads/)
 
 4. And just drag n drop it on the .py script
 
-5. You'll then be prompted with a CMD window who ask wich submods to include as some mods have different version separated by submods you can select just one by entering the numerical value that will be shown or multiple by separating the different numerical value by a comma EX : 1,3,4
+5. You'll then be prompted with a CMD window who ask wich submods to include as some mods have different version separated by submods you can select just one by entering the numerical value that will be shown or multiple by separating the different numerical value by a comma e.g. : 1 or 3 or 1,3,4
 
 * To change the saved steam path or game path either delete "path_config.txt" and double click the script or you can edit it and set both path manually the first one being your steam/steamCMD path and the second one being your Project Zomboid/PZ Dedicated Server path
 
