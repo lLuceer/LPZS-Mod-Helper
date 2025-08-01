@@ -12,6 +12,11 @@ And the newer version "PZ_mod_helper_CopyWorkshop.py" that will like the first v
 
 I included a shortcut to open the default location of .ini files but downloading it modify the extension to **Open Ini location.lnk.download** you will need to manually delete the .download extension if successful it'll look like a folder with a shortcut Icon and no visible extension
 
+# **Tutorials**
+[PZ_Mod_Helper](https://www.youtube.com/watch?v=kZ4J03z4sEA)
+
+[Collection_Downloader](https://www.youtube.com/watch?v=L98L-_9AdOM)
+
 # **Requierements**
 Python 3.x [Link Here](https://www.python.org/downloads/)
 
