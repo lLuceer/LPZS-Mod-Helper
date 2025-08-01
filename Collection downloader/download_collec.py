@@ -2,23 +2,15 @@ import os
 import re
 import sys
 import time
-import threading
 import subprocess
 import requests
 from bs4 import BeautifulSoup
-import concurrent.futures
 
 # Config
 STEAM_APP_ID = "108600"
-STEAMCMD_PATH = "steamcmd"  # Change to full path if needed
-MAX_THREADS = 5
+STEAMCMD_PATH = "steamcmd"
 WORKSHOP_PATH = os.path.join("steamapps", "workshop", "content", STEAM_APP_ID)
 FAILED_LOG_FILE = "failed_mods_final.txt"
-
-# Thread-safe tracking
-success_list = []
-failed_list = []
-list_lock = threading.Lock()
 
 def check_steamcmd():
     try:
@@ -60,44 +52,22 @@ def fetch_workshop_ids_from_collection(collection_id):
 def is_mod_downloaded(mod_id):
     return os.path.exists(os.path.join(WORKSHOP_PATH, mod_id))
 
-def download_mod_initial(mod_id):
-    if is_mod_downloaded(mod_id):
-        print(f"✅ [Mod {mod_id}] Already present.")
-        return
-
-    cmd = [STEAMCMD_PATH, "+login", "anonymous",
-           "+workshop_download_item", STEAM_APP_ID, mod_id,
-           "+quit"]
-    try:
-        subprocess.run(cmd, check=True)
-        if is_mod_downloaded(mod_id):
-            with list_lock:
-                success_list.append(mod_id)
-            print(f"✅ [Mod {mod_id}] Downloaded.")
-        else:
-            raise Exception("Folder not found after download.")
-    except Exception as e:
-        with list_lock:
-            failed_list.append(mod_id)
-        print(f"❌ [Mod {mod_id}] Initial download failed: {e}")
-
-def persistent_retry_single_mod(mod_id):
-    print(f"\n🔁 [Mod {mod_id}] Entering persistent SteamCMD session...")
-
+def download_mod_with_retry(mod_id, max_attempts=5, retry_delay=5):
     if is_mod_downloaded(mod_id):
         print(f"✅ [Mod {mod_id}] Already downloaded.")
-        return
+        return True
+
+    print(f"\n⬇️  [Mod {mod_id}] Starting download...")
 
     attempt = 0
-    while True:
+    while attempt < max_attempts:
         attempt += 1
-        if is_mod_downloaded(mod_id):
-            print(f"✅ [Mod {mod_id}] Downloaded after {attempt - 1} retry(s).")
-            return
 
-        script_lines = ["login anonymous"]
-        script_lines += [f"workshop_download_item {STEAM_APP_ID} {mod_id}"] * 10  # Send 10 retries in one session
-        script_lines.append("quit")
+        script_lines = [
+            "login anonymous",
+            f"workshop_download_item {STEAM_APP_ID} {mod_id}",
+            "quit"
+        ]
 
         temp_script = f"temp_retry_{mod_id}.txt"
         with open(temp_script, "w") as f:
@@ -106,46 +76,33 @@ def persistent_retry_single_mod(mod_id):
         try:
             subprocess.run([STEAMCMD_PATH, "+runscript", temp_script], check=True)
         except subprocess.CalledProcessError as e:
-            print(f"❌ SteamCMD session failed: {e}")
+            print(f"⚠️ SteamCMD error (attempt {attempt}): {e}")
         finally:
             if os.path.exists(temp_script):
                 os.remove(temp_script)
 
         if is_mod_downloaded(mod_id):
-            print(f"✅ [Mod {mod_id}] Successfully downloaded.")
-            return
+            print(f"✅ [Mod {mod_id}] Downloaded successfully after {attempt} attempt(s).")
+            return True
         else:
-            print(f"⏳ [Mod {mod_id}] Still missing after {attempt * 10} tries. Retrying in 5s...")
-            time.sleep(5)
+            print(f"🔁 [Mod {mod_id}] Not downloaded. Retrying in {retry_delay}s...")
+            time.sleep(retry_delay)
 
-def run_initial_parallel_downloads(mod_ids):
-    print(f"\n🚀 Starting parallel downloads with {MAX_THREADS} threads...\n")
-    with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
-        executor.map(download_mod_initial, mod_ids)
+    print(f"❌ [Mod {mod_id}] Failed after {max_attempts} attempts.")
+    return False
 
-def run_persistent_retries():
-    if not failed_list:
-        print("✅ No mods to retry.")
-        return
-
-    print(f"\n🔄 Retrying {len(failed_list)} mods...")
-    for mod_id in failed_list:
-        persistent_retry_single_mod(mod_id)
-
-def save_final_failures(all_ids):
-    still_failed = [mid for mid in all_ids if not is_mod_downloaded(mid)]
-    if still_failed:
+def save_failed_mods(failed_ids):
+    if failed_ids:
         with open(FAILED_LOG_FILE, "w") as f:
-            f.write('\n'.join(still_failed))
-        print(f"❌ Still failed: {len(still_failed)} saved to {FAILED_LOG_FILE}")
+            f.write('\n'.join(failed_ids))
+        print(f"❌ Failed mods saved to: {FAILED_LOG_FILE}")
     else:
-        print("🎉 All mods downloaded.")
+        print("🎉 All mods downloaded successfully.")
 
 def main():
     check_steamcmd()
 
     user_input = input("🔗 Enter Steam collection URL, ID, or mod list file path: ").strip()
-
     mod_ids = []
 
     if "steamcommunity.com" in user_input or user_input.isdigit():
@@ -174,11 +131,20 @@ def main():
 
     print(f"[+] Total mods to process: {len(mod_ids)}")
 
-    run_initial_parallel_downloads(mod_ids)
-    run_persistent_retries()
-    save_final_failures(mod_ids)
+    failed = []
 
-    input("\n🔚 Done! Press Enter to exit...")
+    for mod_id in mod_ids:
+        success = download_mod_with_retry(mod_id)
+        if not success:
+            failed.append(mod_id)
+
+    successful_count = len(mod_ids) - len(failed)
+    failed_count = len(failed)
+
+    print(f"\n📦 Summary: {successful_count} mods downloaded, {failed_count} failed.")
+
+    save_failed_mods(failed)
+    input("🔚 Press Enter to exit...")
 
 if __name__ == "__main__":
     main()
