@@ -65,6 +65,6 @@ Added a script to delete map cells, chunk data or zpop chunk
 
 6. Do the same for bottom right coordinate
 
-7. You'll then be prompted to [1]include or [2]exclude, include means that everything beetween X1_Y1 and X2_Y2 will be deleted, exclude means that everything but X1_Y1 and X2_Y2 will be deleted
+7. You'll then be prompted to [1]include or [2]exclude, include means that everything between X1_Y1 and X2_Y2 will be deleted, exclude means that everything but X1_Y1 and X2_Y2 will be deleted
 
-8. You'll be prompted with a comfirmation just write out "y" and it'll delete either all files between this square or all other files depending on include/difference mode
+8. You'll be prompted with a confirmation just write out "y" and it'll delete either all files between this square or all other files depending on include/difference mode
