@@ -47,3 +47,24 @@ For those that may have other mod than what they want to add I added 2 scripts t
 * SteamCMD being a bit clunky it may takes some time especially with bigger mods that may fail multiple times, added a bruteforce at the end for those bigger mods but I only tested it with brita's weapon pack, it should still work with multiple of those bigger mods but I haven't been able to verify it
 
 * It is thinked for project zomboid but you can easilly change it for any game that allow [anonymous download](https://steamdb.info/sub/17906/apps/) for that simply open "download_collec.py" with your notepad and replace the **STEAM_APP_ID = "_108600_"** by the ID of your game
+
+# **Map Reset Helper**
+Added a script to delete map cells, chunk data or zpop chunk
+
+**How to use ?**
+
+1. Double click on the script "Map_reset_helper.py"
+
+2. When prompted enter your save files path usually %userprofile%/zomboid/saves/multiplayer/xxxxxxx
+
+3. You'll then be prompted which files you wanna delete, [1] map cells/[2] chunk data/[3] zpop chunk select the one you want to delete files for
+
+4. Then use [this site](https://map.projectzomboid.com/) to find the coordinates, don't forget to check "Overlay Grid" to actually see the coordinates.  **green top righ are map cells and yellow top right are chunk cell**
+
+5. Then enter top left cell/chunk coordinate in X_Y format > press enter
+
+6. Do the same for bottom right coordinate
+
+7. You'll then be prompted to [1]include or [2]exclude, include means that everything beetween X1_Y1 and X2_Y2 will be deleted, exclude means that everything but X1_Y1 and X2_Y2 will be deleted
+
+8. You'll be prompted with a comfirmation just write out "y" and it'll delete either all files between this square or all other files depending on include/difference mode
