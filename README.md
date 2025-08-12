@@ -51,7 +51,7 @@ For those that may have other mod than what they want to add I added 2 scripts t
 # **Map Reset Helper**
 Added a script to delete map cells, chunk data or zpop chunk
 
-How to use ?
+**How to use ?**
 
 1. Double click on the script "Map_reset_helper.py"
 
