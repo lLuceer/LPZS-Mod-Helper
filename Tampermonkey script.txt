@@ -1,0 +1,96 @@
+// ==UserScript==
+// @name         Map Coordinate Grabber
+// @namespace    http://tampermonkey.net/
+// @version      1.0
+// @description  Capture both chunk and cell-based chunk coordinates with clicks
+// @match        *://*/*
+// @grant        none
+// ==/UserScript==
+
+(function () {
+    'use strict';
+
+    let firstCoord = null, secondCoord = null;
+
+    // Last-seen readings from the page
+    const last = { chunkX: null, chunkY: null, tileX: null, tileY: null };
+
+    // Poll DOM every 50ms
+    const poll = setInterval(() => {
+        const coordsEl = document.getElementById('coords');
+        const cellXEl = document.getElementById('cellX');
+        const cellYEl = document.getElementById('cellY');
+
+        // Tile coords from #coords (format: 10800x9015)
+        if (coordsEl && coordsEl.textContent) {
+            const parts = coordsEl.textContent.split('x');
+            if (parts.length === 2) {
+                const tx = Number(parts[0]), ty = Number(parts[1]);
+                if (Number.isFinite(tx) && Number.isFinite(ty)) {
+                    last.tileX = tx;
+                    last.tileY = ty;
+                }
+            }
+        }
+
+        // Chunk coords from cellX/cellY
+        if (cellXEl && cellYEl) {
+            const cx = Number(cellXEl.textContent), cy = Number(cellYEl.textContent);
+            if (Number.isFinite(cx) && Number.isFinite(cy)) {
+                last.chunkX = cx;
+                last.chunkY = cy;
+            }
+        }
+    }, 50);
+
+    // Compute chunk coords from tiles (/10 trunc)
+    function tileToChunkCoord() {
+        if (last.tileX != null && last.tileY != null) {
+            const cx = Math.trunc(last.tileX / 10);
+            const cy = Math.trunc(last.tileY / 10);
+            return `${cx}_${cy}`;
+        }
+        return null;
+    }
+
+    // Get chunk coords directly from cellX/cellY
+    function chunkCoord() {
+        if (last.chunkX != null && last.chunkY != null) {
+            return `${last.chunkX}_${last.chunkY}`;
+        }
+        return null;
+    }
+
+    function logStatus() {
+        console.log(
+            `Last CHUNK: ${chunkCoord()} — CELL: ${tileToChunkCoord()} — First: ${firstCoord || '-'} — Second: ${secondCoord || '-'}`
+        );
+    }
+
+    // On click, capture coords
+    window.addEventListener('click', () => {
+        const chunk = chunkCoord();
+        const tileChunk = tileToChunkCoord();
+
+        if (!chunk || !tileChunk) {
+            console.warn('No coordinates detected — wait a moment and try again.');
+            return;
+        }
+
+        if (!firstCoord) {
+            firstCoord = { chunk, tileChunk };
+            console.log(`First coordinate set: CHUNK=${chunk} | CELL=${tileChunk}`);
+        } else if (!secondCoord) {
+            secondCoord = { chunk, tileChunk };
+            console.log(`Second coordinate set: CHUNK=${chunk} | CELL=${tileChunk}`);
+            console.log(`\nUse in Python:\nCHUNK: ${firstCoord.chunk} ${secondCoord.chunk}\nCELL: ${firstCoord.tileChunk} ${secondCoord.tileChunk}`);
+        } else {
+            firstCoord = { chunk, tileChunk };
+            secondCoord = null;
+            console.log(`First coordinate reset: CHUNK=${chunk} | CELL=${tileChunk}`);
+        }
+        logStatus();
+    });
+
+    console.log('Coordinate grabber active — outputs both CHUNK and CELL automatically.');
+})();
