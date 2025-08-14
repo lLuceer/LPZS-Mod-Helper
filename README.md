@@ -93,3 +93,5 @@ CELL: [1234_1234] [1234_1234]"
 5. Copy in the python script either chunk for chunkdata or zpop or cell for map cells (without bracket one coordinate after the other)
 
 * Check that coordinates aren't locked as it use the coordinates feedback on the left
+
+* If you don't want to go through the TamperMonkey extension you can also just copy paste the script in your console
