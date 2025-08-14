@@ -77,7 +77,7 @@ There is a TamperMonkey as a txt file, just install the extention then click on 
 
 1. Once installed and the script added, activate it, go to the [map site](https://map.projectzomboid.com/)
 
-2. Pres ctri + shift + i to show the Inspect tools
+2. Press ctri + shift + i to show the Inspect tools
 
 3. Go to console then click on 2 location, try imagining a rectangle that autocomple from those 2 points
 
