@@ -68,3 +68,22 @@ Added a script to delete map cells, chunk data or zpop chunk
 7. You'll then be prompted to [1]include or [2]exclude, include means that everything between X1_Y1 and X2_Y2 will be deleted, exclude means that everything but X1_Y1 and X2_Y2 will be deleted
 
 8. You'll be prompted with a confirmation just write out "y" and it'll delete either all files between this square or all other files depending on include/exclude mode
+
+# **TamperMonkey script
+
+There is a TamperMonkey as a txt file, just install the extention then click on it > Create new script > paste the code in it and save it
+
+**How to use ?**
+
+1. Once installed and the script added, activate it, go to the [map site](https://map.projectzomboid.com/)
+
+2. Pres ctri + shift + i to show the Inspect tools
+
+3. Go to console then click on 2 location, try imagining a rectangle that autocomple from those 2 points
+
+4. On your console you'll have a result lookin like : 
+"Use in Python:
+CHUNK: [12_34] [12_34]
+CELL: [1234_1234] [1234_1234]"
+
+5. Copy in the python script either chunk for chunkdata or zpop or cell for map cells (without bracket one coordinate after the other)
