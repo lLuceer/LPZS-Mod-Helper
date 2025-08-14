@@ -81,9 +81,13 @@ There is a TamperMonkey as a txt file, just install the extention then click on 
 
 3. Go to console then click on 2 location, try imagining a rectangle that autocomple from those 2 points
 
-4. On your console you'll have a result lookin like : 
+4. On your console you'll have a result lookin like :
+
 "Use in Python:
+
 CHUNK: [12_34] [12_34]
+
 CELL: [1234_1234] [1234_1234]"
+
 
 5. Copy in the python script either chunk for chunkdata or zpop or cell for map cells (without bracket one coordinate after the other)
