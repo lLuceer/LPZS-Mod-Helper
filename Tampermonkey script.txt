@@ -61,11 +61,6 @@
         return null;
     }
 
-    function logStatus() {
-        console.log(
-            `Last CHUNK: ${chunkCoord()} — CELL: ${tileToChunkCoord()} — First: ${firstCoord || '-'} — Second: ${secondCoord || '-'}`
-        );
-    }
 
     // On click, capture coords
     window.addEventListener('click', () => {
@@ -83,13 +78,12 @@
         } else if (!secondCoord) {
             secondCoord = { chunk, tileChunk };
             console.log(`Second coordinate set: CHUNK=${chunk} | CELL=${tileChunk}`);
-            console.log(`\nUse in Python:\nCHUNK: ${firstCoord.chunk} ${secondCoord.chunk}\nCELL: ${firstCoord.tileChunk} ${secondCoord.tileChunk}`);
+            console.log(`\nUse in Python:\nCHUNK: [${firstCoord.chunk}] [${secondCoord.chunk}]\nCELL: [${firstCoord.tileChunk}] [${secondCoord.tileChunk}]`);
         } else {
             firstCoord = { chunk, tileChunk };
             secondCoord = null;
             console.log(`First coordinate reset: CHUNK=${chunk} | CELL=${tileChunk}`);
         }
-        logStatus();
     });
 
     console.log('Coordinate grabber active — outputs both CHUNK and CELL automatically.');
