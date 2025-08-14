@@ -69,7 +69,7 @@ Added a script to delete map cells, chunk data or zpop chunk
 
 8. You'll be prompted with a confirmation just write out "y" and it'll delete either all files between this square or all other files depending on include/exclude mode
 
-# **TamperMonkey script
+# **TamperMonkey script**
 
 There is a TamperMonkey as a txt file, just install the extention then click on it > Create new script > paste the code in it and save it
 
